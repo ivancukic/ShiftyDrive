@@ -1,0 +1,78 @@
+.outer-container {
+    width: 100%;
+    height: 98.3vh;
+    background-image: url('../../assets/pexels-minhle17vn-977213.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+}
+
+.flex-container {
+    display: flex; 
+    flex-direction: column;
+    background-color: #f1f1f1;
+    width: 25%;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.inside-flex {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+    padding: 0;
+
+}
+
+label {
+  margin-bottom: 5px; 
+  font-weight: bold; 
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  padding: 10px;
+  margin-bottom: 10px; 
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+small {
+  color: #777;
+  font-size: 0.9em;
+}
+
+.head-text {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #ccc; 
+  font-size: 1.7em;
+  font-weight: bold;
+}
+
+.pretty-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: bold;
+
+  &:hover {
+    // You can add hover effects here to make it even prettier
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+
+  &:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+  }
+}

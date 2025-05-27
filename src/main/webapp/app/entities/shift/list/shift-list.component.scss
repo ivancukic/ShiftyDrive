@@ -1,0 +1,117 @@
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.box .outer-box {
+  width: 1500px;
+  height: 800px;
+}
+
+.box .outer-box .header {
+  color: black;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 2rem; 
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between; /* Pushes elements to the edges */
+  align-items: center; /* Vertically centers items */
+  margin-bottom: 1rem; /* Adds some space below the header and button */
+}
+
+.header {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  text-align: left;
+  margin: 0; /* Reset default margin to control spacing */
+}
+
+.new-button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  border: none;
+  text-align: center;
+  width: 120px;
+}
+
+.new-button:hover {
+    background-color: #707277;
+}
+
+.new-button:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+    opacity: 0.6;
+    transform: none;
+}
+
+.new-button:disabled:hover {
+    background-color: #9ca3af;
+    transform: none;
+}
+
+// Table
+.my-table {
+width: 100%;
+border-collapse: collapse;
+margin-top: 20px;
+}
+
+.my-table th, .my-table td {
+border: 1px solid #ddd;
+padding: 8px;
+text-align: center;
+}
+
+.my-table th {
+background-color: #f0f0f0;
+}
+
+.my-table tbody tr:nth-child(even) {
+background-color: #f9f9f9;
+}
+
+.my-table tbody tr:hover {
+ background-color: #f1f1f1;
+}
+
+.edit-button {
+ background-color: #3c5f86;
+ color: white;
+ padding: 8px 12px;
+ border: none;
+ border-radius: 5px;
+ cursor: pointer;
+ margin-right: 5px;
+ transition: background-color 0.3s ease;
+ text-decoration: none; /* Remove underline */
+ display: inline-block; /* Ensure padding and other styles apply */
+}
+
+.edit-button:hover {
+ background-color: #4b7aac;
+}
+
+.delete-button {
+ background-color: #c43644;
+ color: white;
+ padding: 8px 12px;
+ border: none;
+ border-radius: 5px;
+ cursor: pointer;
+ transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+ background-color: #e4707b;
+}

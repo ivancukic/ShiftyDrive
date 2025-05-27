@@ -1,0 +1,35 @@
+<div class="box">
+  <div class="outer-box">
+      <h2 class="header">Create Category</h2>
+      <div class="inside-flex">
+        <div class="alert alert-success marg" *ngIf="success">
+          <strong>You have successfully created Category!</strong> 
+        </div>
+        <div class="alert alert-danger marg" *ngIf="error">
+          <strong>Something wrong! Please check form</strong> 
+        </div>
+      </div>
+      <form 
+        id="createCategoryForm" 
+        class="form" 
+        name="form" 
+        role="form"
+        (ngSubmit)="onSubmit()"
+        [formGroup]="categoryForm"
+        *ngIf="!success"
+      >   
+          <div class="inside-flex">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" id="name" name="name" class="form-control" placeholder="Enter category name" formControlName="name" required>
+              <div *ngIf="categoryForm.get('name')?.invalid && (categoryForm.get('name')?.dirty || categoryForm.get('name')?.touched)">
+                  <small class="form-text text-danger" *ngIf="categoryForm.get('name')?.errors?.['required']">Your name is required.</small>
+                  <small class="form-text text-danger" *ngIf="categoryForm.get('name')?.errors?.['invalid']">Your name is invalid.</small>
+              </div>
+          </div>
+          <div class="button-group">
+              <button type="submit" class="pretty-button-submit" id="submitButton" [disabled]="categoryForm.invalid">Submit</button>
+              <button type="button" class="pretty-button-cancel" id="cancelButton" (click)="cancel()">Cancel</button>
+          </div>
+      </form>
+  </div>
+</div>

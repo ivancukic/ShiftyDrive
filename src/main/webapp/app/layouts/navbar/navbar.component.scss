@@ -1,0 +1,89 @@
+.container-flex {
+  background-color: beige; /* Light gray background */
+  font-size: 1.2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* More modern font */
+  height: 70px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  position: sticky; /* Make it stick to the top on scroll (optional) */
+  top: 0;
+  z-index: 100; /* Ensure it stays above other content */
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Keep logo and links apart */
+  height: 100%;
+  width: 90%; /* Slightly wider for better spacing */
+  margin: 0 auto; /* Center the navbar content */
+}
+
+.navbar h2 {
+  color: black; /* Primary blue color for the title */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0; /* Remove default heading margin */
+  font-size: 1.5rem; /* Slightly larger title */
+  font-weight: 600;
+}
+
+.navbar nav ul {
+  display: flex;
+  margin: 0; /* Remove default ul margin */
+  padding: 0; /* Remove default ul padding */
+  list-style: none; /* Remove bullet points */
+}
+
+.navbar nav ul li {
+  margin: 0 15px; /* Adjust spacing between links */
+}
+
+.navbar nav ul li:last-child {
+  margin-right: 0; /* Remove right margin from the last item */
+}
+
+.navbar a {
+  color: #343a40; /* Dark gray for links */
+  text-decoration: none; /* Remove underlines */
+  font-weight: 500; /* Semi-bold for links */
+  transition: color 0.3s ease-in-out; /* Smooth hover transition */
+  cursor: pointer;
+}
+
+.navbar a:hover {
+  color: #68a1db; /* Primary blue on hover */
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 767px) {
+  .container-flex {
+    height: auto; /* Adjust height for stacked content */
+    padding: 15px 0; /* Add some vertical padding */
+  }
+
+  .navbar {
+    flex-direction: column; /* Stack title and navigation */
+    align-items: flex-start; /* Align items to the left */
+    padding: 15px; /* Add padding inside the navbar */
+    width: 100%; /* Full width on smaller screens */
+  }
+
+  .navbar h2 {
+    margin-bottom: 10px; /* Add space below the title */
+    font-size: 1.6rem;
+  }
+
+  .navbar nav ul {
+    flex-direction: column; /* Stack links vertically */
+    width: 100%; /* Full width for links */
+  }
+
+  .navbar nav ul li {
+    margin: 10px 0; /* Add vertical spacing between links */
+    text-align: left; /* Align links to the left */
+  }
+}
+
+/* Small screen adjustments */
+@media screen and (min-width: 390px) and (max-width: 767px) {
+  /* You can add more specific adjustments here if needed */
+}

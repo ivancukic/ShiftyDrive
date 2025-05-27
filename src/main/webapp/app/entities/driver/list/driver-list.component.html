@@ -1,0 +1,79 @@
+<div class="box">
+    <div class="outer-box">
+        <br>
+        <div class="header-container">
+            <h2 class="header">Drivers</h2>
+            <div class="action-buttons">
+                <button class="new-button" (click)="openImportPopup()">Import</button>
+                <button class="new-button" [routerLink]="['/drivers/new']">New</button>
+            </div>
+        </div>
+        <br>
+        <table class="my-table">
+            <thead>
+                <tr>
+                    <th style="width: 150px;">Id</th>
+                    <th style="width: 350px;">Name</th>
+                    <th style="width: 350px;">Date Of Birth</th>
+                    <th style="width: 150px;">Active</th>
+                    <th style="width: 150px;">Category</th>
+                    <th style="width: 300px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let driver of driverList">
+                    <td>{{ driver.id }}</td>
+                    <td>{{ driver.name }}</td>
+                    <td>{{ driver.dob }}</td>
+                    <td>{{ driver.active }}</td>
+                    <td>{{ driver.category?.name }}</td>
+                    <td>
+                        <button class="edit-button" [routerLink]="['/drivers', 'edit', driver.id]" >Edit</button>
+                        <button class="delete-button" (click)="delete(driver)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!--Popup for import-->
+<div class="modal-overlay" *ngIf="showImportPopup">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Import Drivers from File</h3>
+            <button class="modal-close-button" (click)="closeImportPopup()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p>Please select an Excel file (.xlsx) to upload:</p>
+            <input
+                type="file"
+                id="fileInput"
+                class="file-input"
+                accept=".xlsx"
+                (change)="onFileSelected($event)"
+            >
+            <div class="file-input-display" (click)="triggerFileInput()">
+                {{ selectedFile ? selectedFile.name : 'No file chosen' }}
+            </div>
+            <small class="file-input-help">Only .xlsx files are supported.</small>
+
+            <div *ngIf="uploadError" class="error-message">{{ uploadError }}</div>
+            <div *ngIf="uploading && uploadProgress > 0" class="upload-progress">
+                Uploading: {{ uploadProgress }}%
+            </div>
+            <div *ngIf="uploadSuccess" class="success-message">
+                File uploaded successfully!
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button
+                class="modal-action-button modal-upload-button"
+                (click)="uploadFile()"
+                [disabled]="!selectedFile || uploading"
+            >
+                Upload
+            </button>
+            <button class="modal-action-button modal-cancel-button" (click)="closeImportPopup()">Cancel</button>
+        </div>
+    </div>
+</div>

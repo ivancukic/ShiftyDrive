@@ -1,0 +1,27 @@
+.box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.box .outer-box {
+    width: 600px;
+    height: 750px;
+    border: 2px solid rgba(46, 221, 105, 0.2);
+    border-radius: 5px;
+    background-color: rgba(96, 168, 120, 0.2);
+    // background-color: rgb(96 139 168 / 0.2);
+}
+
+.box .outer-box .header {
+    color: black;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 2rem; 
+}
+
+.box .outer-box .text-data {
+    color: black;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.1rem; 
+    text-align: justify;
+}

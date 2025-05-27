@@ -1,0 +1,81 @@
+<div class="outer-container">
+  <div class="flex-container">
+      <div class="inside-flex head-text">
+        Login
+      </div>
+      <div class="inside-flex">
+        <div class="alert alert-success marg" *ngIf="success">
+          <strong>You have successfully loged in!</strong> 
+        </div>
+        <div class="alert alert-danger marg" *ngIf="error">
+          <strong>Something wrong! Please check your email and password</strong> 
+        </div>
+      </div>
+      <form
+      class="form"
+      name="form"
+      role="form"
+      (ngSubmit)="onSubmit()"
+      [formGroup]="loginForm"
+      *ngIf="!success"
+      >
+      <div class="inside-flex">
+        <label for="email">Email</label>
+        <input type="text" pInputText id="email" aria-describedby="email-help" formControlName="email"/>
+          <div *ngIf="loginForm.get('email')!.invalid && (loginForm.get('email')!.dirty || loginForm.get('email')!.touched)">
+          <small
+            class="form-text text-danger"
+            *ngIf="loginForm.get('email')?.errors?.['required']"
+            >Your email is required.</small
+          >
+          <small
+            class="form-text text-danger"
+            *ngIf="loginForm.get('email')?.errors?.['invalid']"
+            >Your email is invalid.</small
+          >
+          <small
+            class="form-text text-danger"
+            *ngIf="loginForm.get('email')?.errors?.['minlength']"
+            >Your email is required to be at least 5 characters.</small
+          >
+          <small
+            class="form-text text-danger"
+            *ngIf="loginForm.get('email')?.errors?.['maxlength']"
+            >Your email cannot be longer than 254 characters.</small
+          >
+        </div>
+      </div>
+      <div class="inside-flex">
+        <label for="password">Password</label>
+        <input type="password" pInputText id="password" aria-describedby="password-help" formControlName="password"/>
+          <div
+            *ngIf="loginForm.get('password')!.invalid && (loginForm.get('password')!.dirty || loginForm.get('password')!.touched)"
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="loginForm.get('password')?.errors?.['required']"
+              >Your password is required.</small
+            >
+            <small
+              class="form-text text-danger"
+              *ngIf="loginForm.get('password')?.errors?.['minlength']"
+              >Your password is required to be at least 4 characters.</small
+            >
+            <small
+              class="form-text text-danger"
+              *ngIf="loginForm.get('password')?.errors?.['maxlength']"
+              >Your password cannot be longer than 50 characters.</small
+            >
+          </div>
+      </div>
+      <div class="inside-flex">
+        <button type="submit" [disabled]="loginForm.invalid" class="pretty-button">Submit</button>
+      </div>
+      </form>
+      <div class="inside-flex">
+        <p class="no-account-text">
+          Don't have an account? <a routerLink="/register" class="register-link">Register here</a>
+        </p>
+      </div>
+  </div>
+</div>

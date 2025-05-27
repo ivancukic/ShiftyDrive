@@ -1,0 +1,31 @@
+<div class="box">
+    <div class="outer-box">
+        <br>
+        <div class="header-container">
+            <h2 class="header">Shifts</h2>
+            <!-- <button class="new-button" [routerLink]="['/shifts/new']">New</button> -->
+        </div>
+        <br>
+        <table class="my-table">
+            <thead>
+                <tr>
+                    <th style="width: 150px;">Id</th>
+                    <th style="width: 350px;">Driver</th>
+                    <th style="width: 350px;">Line</th>
+                    <th style="width: 300px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let shift of shiftList">
+                    <td>{{ shift.id }}</td>
+                    <td>{{ shift.driver?.name }}</td>
+                    <td>{{ shift.line?.name }}</td>
+                    <td>
+                        <button class="edit-button" [routerLink]="['/shifts', 'edit', shift.id]" >Edit</button>
+                        <button class="delete-button" (click)="delete(shift)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

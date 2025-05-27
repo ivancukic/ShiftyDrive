@@ -1,0 +1,288 @@
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.box .outer-box {
+  width: 1500px;
+  height: 800px;
+}
+
+.box .outer-box .header {
+  color: black;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 2rem; 
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between; /* Pushes elements to the edges */
+  align-items: center; /* Vertically centers items */
+  margin-bottom: 1rem; /* Adds some space below the header and button */
+}
+
+.header {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  text-align: left;
+  margin: 0; /* Reset default margin to control spacing */
+}
+
+.action-buttons {
+    display: flex; /* Make the buttons also use Flexbox to sit side-by-side */
+    gap: 0.75rem; /* Space between the 'Import' and 'New' buttons */
+}
+
+.new-button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  border: none;
+  text-align: center;
+  width: 120px;
+}
+
+.new-button:hover {
+    background-color: #707277;
+}
+
+.new-button:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+    opacity: 0.6;
+    transform: none;
+}
+
+.new-button:disabled:hover {
+    background-color: #9ca3af;
+    transform: none;
+}
+
+// Table
+.my-table {
+width: 100%;
+border-collapse: collapse;
+margin-top: 20px;
+}
+
+.my-table th, .my-table td {
+border: 1px solid #ddd;
+padding: 8px;
+text-align: center;
+}
+
+.my-table th {
+background-color: #f0f0f0;
+}
+
+.my-table tbody tr:nth-child(even) {
+background-color: #f9f9f9;
+}
+
+.my-table tbody tr:hover {
+ background-color: #f1f1f1;
+}
+
+.edit-button {
+ background-color: #3c5f86;
+ color: white;
+ padding: 8px 12px;
+ border: none;
+ border-radius: 5px;
+ cursor: pointer;
+ margin-right: 5px;
+ transition: background-color 0.3s ease;
+ text-decoration: none; /* Remove underline */
+ display: inline-block; /* Ensure padding and other styles apply */
+}
+
+.edit-button:hover {
+ background-color: #4b7aac;
+}
+
+.delete-button {
+ background-color: #c43644;
+ color: white;
+ padding: 8px 12px;
+ border: none;
+ border-radius: 5px;
+ cursor: pointer;
+ transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+ background-color: #e4707b;
+}
+
+/* --- Modal Overlay --- */
+.modal-overlay {
+    position: fixed; /* Stays in place even when scrolling */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black background */
+    display: flex; /* Use flexbox to center the modal content */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it's on top of other content */
+
+    /* Initially hidden. Your Angular *ngIf will control visibility. */
+    /* If you were using pure CSS, you'd toggle display: flex/none */
+    /* display: none; */
+}
+
+/* --- Modal Content Box --- */
+.modal-content {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 500px; /* Max width for the modal */
+    position: relative; /* For positioning the close button */
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; /* Space between header, body, and footer */
+}
+
+/* --- Modal Header --- */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e2e8f0; /* Light border at the bottom */
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: #1f2937;
+    font-weight: 600;
+}
+
+.modal-close-button {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    color: #6b7280;
+    cursor: pointer;
+    line-height: 1; /* Adjust line height to center the 'x' */
+    padding: 0.2rem 0.5rem; /* Make it easier to click */
+    border-radius: 0.25rem;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.modal-close-button:hover {
+    color: #374151;
+    background-color: #f3f4f6;
+}
+
+/* --- Modal Body --- */
+.modal-body {
+    flex-grow: 1; /* Allows body to take available space */
+}
+
+.modal-body p {
+    font-size: 1rem;
+    color: #4b5563;
+    margin-bottom: 1rem;
+}
+
+/* --- Custom File Input Styling --- */
+.file-input {
+    display: none; /* Hide the default file input */
+}
+
+.file-input-display {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px dashed #9ca3af; /* Dashed border for a file drop zone feel */
+    border-radius: 0.375rem;
+    background-color: #f9fafb;
+    color: #4b5563;
+    cursor: pointer;
+    text-align: center;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+    margin-bottom: 0.5rem;
+}
+
+.file-input-display:hover {
+    border-color: #3b82f6; /* Highlight on hover */
+    background-color: #eff6ff;
+}
+
+.file-input-help {
+    font-size: 0.8rem;
+    color: #6b7280;
+    text-align: center;
+    display: block; /* Ensure it's on its own line */
+}
+
+/* --- Modal Footer --- */
+.modal-footer {
+    display: flex;
+    justify-content: flex-end; /* Align buttons to the right */
+    gap: 0.75rem; /* Space between buttons */
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0; /* Light border at the top */
+}
+
+.modal-action-button {
+    padding: 0.6rem 1.2rem;
+    border-radius: 0.375rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    border: none;
+}
+
+.modal-upload-button {
+    background-color: #28a745; /* Green for upload */
+    color: #ffffff;
+}
+
+.modal-upload-button:hover {
+    background-color: #218838;
+}
+
+.modal-cancel-button {
+    background-color: #6c757d; /* Gray for cancel */
+    color: #ffffff;
+}
+
+.modal-cancel-button:hover {
+    background-color: #5a6268;
+}
+
+.error-message {
+    color: #dc3545; /* Bootstrap's red for danger/error */
+    font-size: 0.85rem;
+    margin-top: 0.75rem; /* Space above the error text */
+    text-align: center;
+}
+
+/* Optional: Styling for progress/success messages */
+.upload-progress {
+    font-size: 0.85rem;
+    color: #007bff; /* Blue for info */
+    margin-top: 0.75rem;
+    text-align: center;
+}
+
+.success-message {
+    font-size: 0.85rem;
+    color: #28a745; /* Green for success */
+    margin-top: 0.75rem;
+    text-align: center;
+}

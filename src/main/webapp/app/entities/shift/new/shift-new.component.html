@@ -1,0 +1,52 @@
+<div class="box">
+  <div class="outer-box">
+      <h2 class="header">Create Shift</h2>
+      <div class="inside-flex">
+        <div class="alert alert-success marg" *ngIf="success">
+          <strong>You have successfully created Shift!</strong> 
+        </div>
+        <div class="alert alert-danger marg" *ngIf="error">
+          <strong>Something wrong! Please check the shifts</strong> 
+        </div>
+        <div class="alert alert-danger marg" *ngIf="errSameDriver">
+          <strong>{{ errMessage }}</strong> 
+        </div>
+        <div class="alert alert-danger marg" *ngIf="errSameShiftDiffLine">
+          <strong>{{ errMessage }}</strong> 
+        </div>
+      </div>
+      <form 
+        id="createShiftForm" 
+        class="form" 
+        name="form" 
+        role="form"
+        (ngSubmit)="onSubmit()"
+        [formGroup]="shiftForm"
+        *ngIf="!success"
+      >   
+          <div class="line-info-display">
+            <h3>Line: {{ line?.name || 'N/A' }}</h3>
+          </div>
+          <div formArrayName="driversForm">
+            <div class="inside-flex" *ngFor="let i of getDriverIndexes()">
+                <label for="driver-{{i}}" class="form-label">Driver {{ i + 1 }}</label>
+                <select
+                    id="driver-{{i}}"
+                    name="driver"
+                    class="form-control"
+                    [formControlName]="i"
+                >
+                    <option value="" disabled selected>Select a driver</option>
+                    <option *ngFor="let driver of drivers" [ngValue]="driver">
+                        {{ driver.name }}
+                    </option>
+                </select>
+            </div>
+          </div>
+          <div class="button-group">
+              <button type="submit" class="pretty-button-submit" id="submitButton" [disabled]="shiftForm.invalid">Submit</button>
+              <button type="button" class="pretty-button-cancel" id="cancelButton" (click)="cancel()">Cancel</button>
+          </div>
+      </form>
+  </div>
+</div>

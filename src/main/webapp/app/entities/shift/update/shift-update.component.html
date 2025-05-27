@@ -1,0 +1,43 @@
+<div class="box">
+  <div class="outer-box">
+      <h2 class="header">Edit Shift</h2>
+      <div class="inside-flex">
+        <div class="alert alert-success marg" *ngIf="success">
+          <strong>You have successfully edit Shift!</strong> 
+        </div>
+        <div class="alert alert-danger marg" *ngIf="error">
+          <strong>Something wrong! Please check form</strong> 
+        </div>
+      </div>
+      <form 
+        id="editShiftForm" 
+        class="form" 
+        name="form" 
+        role="form"
+        (ngSubmit)="onSubmit()"
+        [formGroup]="shiftForm"
+        *ngIf="!success"
+      >   
+          <div class="line-info-display">
+            <h3>Line: {{ shiftForm.get('lineForm')?.value?.name }}</h3>
+          </div>
+          <div class="inside-flex">
+                <label for="driverForm" class="form-label">Driver</label>
+                <select
+                    id="driverForm"
+                    class="form-control"
+                    formControlName="driverForm"
+                    >
+                    <option [ngValue]="null" disabled>Select a driver</option>
+                    <option *ngFor="let driver of driverList" [ngValue]="driver">
+                        {{ driver.name }}
+                    </option>
+                </select>
+          </div>
+          <div class="button-group">
+              <button type="submit" class="pretty-button-submit" id="submitButton" [disabled]="shiftForm.invalid">Submit</button>
+              <button type="button" class="pretty-button-cancel" id="cancelButton" (click)="cancel()">Cancel</button>
+          </div>
+      </form>
+  </div>
+</div>

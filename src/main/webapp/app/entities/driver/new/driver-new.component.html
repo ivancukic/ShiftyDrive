@@ -1,0 +1,77 @@
+<div class="box">
+  <div class="outer-box">
+      <h2 class="header">Create Driver</h2>
+      <div class="inside-flex">
+        <div class="alert alert-success marg" *ngIf="success">
+          <strong>You have successfully created Driver!</strong> 
+        </div>
+        <div class="alert alert-danger marg" *ngIf="error">
+          <strong>Something wrong! Please check form</strong> 
+        </div>
+      </div>
+      <form 
+        id="createDriverForm" 
+        class="form" 
+        name="form" 
+        role="form"
+        (ngSubmit)="onSubmit()"
+        [formGroup]="driverForm"
+        *ngIf="!success"
+      >   
+          <div class="inside-flex">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" id="name" name="name" class="form-control" placeholder="Enter driver name" formControlName="name" required>
+              <div *ngIf="driverForm.get('name')?.invalid && (driverForm.get('name')?.dirty || driverForm.get('name')?.touched)">
+                  <small class="form-text text-danger" *ngIf="driverForm.get('name')?.errors?.['required']">Your name is required.</small>
+                  <small class="form-text text-danger" *ngIf="driverForm.get('name')?.errors?.['invalid']">Your name is invalid.</small>
+              </div>
+          </div>
+          <div class="inside-flex">
+              <label for="dob" class="form-label">Date of birth</label>
+              <input
+                    type="date"
+                    id="dob"
+                    name="dob"
+                    class="form-control"
+                    placeholder="Enter driver name"
+                    formControlName="dob"
+                    required
+                >
+                <div *ngIf="driverForm.get('dob')?.invalid && (driverForm.get('dob')?.dirty || driverForm.get('dob')?.touched)">
+                    <small class="form-text text-danger" *ngIf="driverForm.get('dob')?.errors?.['required']">Your date is required.</small>
+                    <small class="form-text text-danger" *ngIf="driverForm.get('dob')?.errors?.['invalid']">Your date is invalid.</small>
+                </div>
+          </div>
+          <div class="inside-flex">
+                <label for="category" class="form-label">Category</label>
+                <select
+                    id="category"
+                    name="category"
+                    class="form-control"
+                    formControlName="category"
+                >
+                    <option value="" disabled selected>Select a category</option>
+                    <option *ngFor="let category of categoryList" [value]="category.id">
+                        {{ category.name }}
+                    </option>
+                </select>
+          </div>
+          <div class="inside-flex">
+                <div class="form-check">
+                    <input
+                        type="checkbox"
+                        id="active"
+                        name="active"
+                        class="form-check-input"
+                        formControlName="active"
+                    >
+                    <label for="active" class="form-check-label">Is Active</label>
+                </div>
+          </div>
+          <div class="button-group">
+              <button type="submit" class="pretty-button-submit" id="submitButton" [disabled]="driverForm.invalid">Submit</button>
+              <button type="button" class="pretty-button-cancel" id="cancelButton" (click)="cancel()">Cancel</button>
+          </div>
+      </form>
+  </div>
+</div>
