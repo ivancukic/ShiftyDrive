@@ -5,13 +5,16 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.driver.shifts.dto.CategoryDTO;
 import com.driver.shifts.entity.Category;
+import com.driver.shifts.entity.User;
 import com.driver.shifts.exceptions.BadRequestAlertException;
 import com.driver.shifts.exceptions.CategoryNotFoundException;
 import com.driver.shifts.exceptions.ResourceNotFoundException;
+import com.driver.shifts.fiters.CategorySpecification;
 import com.driver.shifts.mapper.CategoryMapper;
 import com.driver.shifts.repositories.CategoryRepository;
 
@@ -82,6 +85,20 @@ public class CategoryServiceImpl implements CategoryService {
 			throw new CategoryNotFoundException("Category with id " + id + " not found");
 		}
 		categoryRepository.deleteById(id);
+	}
+
+	@Override
+	public List<CategoryDTO> findCategoriesWithFilterDynamic(String name) {
+		User currentUser = authenticatedUserProvider.getCurrentUser();
+		
+		Specification<Category> spec = Specification
+				.where(CategorySpecification.belongsToUser(currentUser))
+				.and(CategorySpecification.hasName(name));
+		
+		return categoryRepository.findAll(spec)
+								 .stream()
+								 .map(CategoryMapper::convertToDto)
+								 .collect(Collectors.toList());
 	}
 
 

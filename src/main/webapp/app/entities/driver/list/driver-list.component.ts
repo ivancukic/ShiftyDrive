@@ -5,12 +5,16 @@ import { DriverService } from "../driver.service";
 import { Location } from "@angular/common";
 import { IUploadFileDriver } from "../../../model/upload-file-driver.model";
 import { UploadFileService } from "../../../services/upload-file.service";
+import { FormsModule } from "@angular/forms";
+import { ICategory } from "../../category/category.model";
+import { CategoryService } from "../../category/category.service";
 
 @Component({
     selector: 'app-driver-list',
     standalone: true,
     imports: [
         SharedModule,
+        FormsModule,
     ],
     templateUrl: './driver-list.component.html',
     styleUrls: ['./driver-list.component.scss'],
@@ -18,6 +22,7 @@ import { UploadFileService } from "../../../services/upload-file.service";
 export class DriverListComponent implements OnInit {
 
     driverList: IDriver[] = [];
+    categoryList: ICategory[] = [];
     // file import
     showImportPopup: boolean = false;
     selectedFile: File | null = null;
@@ -27,15 +32,32 @@ export class DriverListComponent implements OnInit {
     uploadError: string | null = null;
     resultFileUpload!: IUploadFileDriver;
 
+    // Filter date
+    dobFilterType: 'none' | 'before' | 'after' | 'between' = 'none';
+    
+    filters = {
+        name: '',
+        dobBefore: '',
+        dobAfter: '',
+        dobBetweenStart: '',
+        dobBetweenEnd: '',
+        active: undefined as boolean | undefined,
+        category: null as ICategory | null,
+    };
+
     constructor(
         private driverService: DriverService,
         private location: Location,
         private uploadFileService: UploadFileService,
+        private categoryService: CategoryService,
     ) {}
 
     ngOnInit(): void {
         this.driverService.getAll().subscribe( res => {
             this.driverList = res;
+        });
+        this.categoryService.getAll().subscribe( res => {
+            this.categoryList = res;
         });
     }
 
@@ -124,5 +146,73 @@ export class DriverListComponent implements OnInit {
             }, time);
         } 
     }
-    
+
+    inputFilter(filter: any, inputField: string) {
+        if(inputField==='all') {
+            this.driverService.getAll().subscribe( res => {
+                this.driverList = res;
+            });
+        }
+        if(inputField==='name') {
+            this.filters.name = filter.value;
+        }
+        if(inputField==='before') {
+            this.filters.dobBefore = filter.value;
+        }
+        if(inputField==='after') {
+            this.filters.dobAfter = filter.value;
+        }
+        if(inputField==='betweenStart') {
+            this.filters.dobBetweenStart = filter.value;
+        }
+        if(inputField==='betweenEnd') {
+            this.filters.dobBetweenEnd = filter.value;
+        }
+        if (inputField === 'active-filter') {
+            if (filter.value === 'all') {
+                this.filters.active = undefined;
+            } else {
+                this.filters.active = filter.value === 'true';
+            }
+        }
+        if (inputField === 'category-filter') {
+            const selectedId = +filter.value;
+            if (filter.value === 'all') {
+                this.filters.category = null;
+            } else {
+                this.filters.category = this.categoryList.find(c => c.id === selectedId) || null;
+            }
+        }
+        this.driverService.filterDrivers(
+            this.filters.name,
+            this.filters.dobBefore,
+            this.filters.dobAfter,
+            this.filters.dobBetweenStart,
+            this.filters.dobBetweenEnd,
+            this.filters.active,
+            this.filters.category?.id
+        ).subscribe({
+            next: (res) => { this.driverList = res },
+            error: (err) => { console.log('Filter error', err) }
+        });
+    }
+
+    // Filter date of birth reset
+    resetDobFilters(): void {
+        this.filters = {
+            name: '',
+            dobBefore: '',
+            dobAfter: '',
+            dobBetweenStart: '',
+            dobBetweenEnd: '',
+            active: undefined as boolean | undefined,
+            category: null as ICategory | null,
+        };
+        this.inputFilter('', 'all');
+    }
+
+    applyDobFilter(filter: any, inputField: string): void {
+        this.inputFilter(filter, inputField);
+    }
+
 }

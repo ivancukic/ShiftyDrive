@@ -13,10 +13,87 @@
             <thead>
                 <tr>
                     <th style="width: 150px;">Id</th>
-                    <th style="width: 350px;">Name</th>
-                    <th style="width: 350px;">Date Of Birth</th>
-                    <th style="width: 150px;">Active</th>
-                    <th style="width: 150px;">Category</th>
+                    <th style="width: 350px;">
+                        Name
+                        <div class="filter-input-container">
+                            <input
+                                type="text"
+                                class="table-filter-control"
+                                placeholder="Filter by Name"
+                                (keyup.enter)="inputFilter(filter, 'name')"
+                                #filter
+                            >
+                        </div>
+                    </th>
+                    <th style="width: 350px;">
+                        Date Of Birth
+                        <div class="filter-group-container">
+                            <select class="table-filter-select" [(ngModel)]="dobFilterType" (change)="resetDobFilters()">
+                                <option value="none">No Filter</option>
+                                <option value="before">Before Date</option>
+                                <option value="after">After Date</option>
+                                <option value="between">Between Dates</option>
+                            </select>
+
+                            <div class="filter-input-container" *ngIf="dobFilterType === 'before'">
+                                <input
+                                    type="date"
+                                    class="table-filter-control"
+                                    (change)="applyDobFilter(filter, 'before')"
+                                    placeholder="Before Date"
+                                    #filter
+                                >
+                            </div>
+
+                            <div class="filter-input-container" *ngIf="dobFilterType === 'after'">
+                                <input
+                                    type="date"
+                                    class="table-filter-control"
+                                    (change)="applyDobFilter(filter, 'after')"
+                                    placeholder="After Date"
+                                    #filter
+                                >
+                            </div>
+
+                            <div class="filter-input-container two-inputs" *ngIf="dobFilterType === 'between'">
+                                <input
+                                    type="date"
+                                    class="table-filter-control"
+                                    (change)="applyDobFilter(filterStart, 'betweenStart')"
+                                    placeholder="Start Date"
+                                    #filterStart
+                                >
+                                <input
+                                    type="date"
+                                    class="table-filter-control"
+                                    (change)="applyDobFilter(filterEnd, 'betweenEnd')"
+                                    placeholder="End Date"
+                                    #filterEnd
+                                >
+                            </div>
+                        </div>
+                    </th>
+                    <th style="width: 150px;">
+                        Active
+                        <div class="filter-input-container">
+                            <select class="table-filter-select" (change)="applyDobFilter(activeFilter, 'active-filter')" #activeFilter>
+                                <option value="all">All</option>
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                    </th>
+                    <th style="width: 150px;">
+                        Category
+                        <div class="filter-input-container">
+                            <select class="table-filter-select" (change)="applyDobFilter(categoryFilter, 'category-filter')" #categoryFilter>
+                                <option value="all">All Categories</option>
+                                <option *ngFor="let category of categoryList" [value]="category.id">
+                                    {{ category.name }}
+                                </option>
+                            </select>
+                        </div>
+                    </th>
                     <th style="width: 300px;">Actions</th>
                 </tr>
             </thead>

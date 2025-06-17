@@ -1,5 +1,6 @@
 package com.driver.shifts.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,5 +20,7 @@ public interface DriverService {
 	void delete(Long id);
 	
 	List<DriverDTO> getActiveDrivers();
+	
+	List<DriverDTO> findDriversWithFilterDynamic(String name, Boolean active, LocalDate dobBefore, LocalDate dobAfter, LocalDate dobBetweenStart, LocalDate dobBetweenEnd, Long categoryId);
 
 }

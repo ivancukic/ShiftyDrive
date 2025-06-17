@@ -10,7 +10,18 @@
             <thead>
                 <tr>
                     <th style="width: 150px;">Id</th>
-                    <th style="width: 350px;">Name</th>
+                    <th style="width: 350px;">
+                        Name
+                        <div class="filter-input-container">
+                            <input
+                                type="text"
+                                class="table-filter-control"
+                                placeholder="Filter by Name"
+                                (keyup.enter)="inputFilter(filter)"
+                                #filter
+                            >
+                        </div>
+                    </th>
                     <th style="width: 300px;">Actions</th>
                 </tr>
             </thead>

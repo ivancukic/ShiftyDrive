@@ -115,3 +115,26 @@ background-color: #f9f9f9;
 .delete-button:hover {
  background-color: #e4707b;
 }
+
+.filter-input-container {
+  margin-top: 8px; /* Space between the "Name" text and the filter input */
+  width: 100%;
+  box-sizing: border-box; /* Ensures padding and border are included in the element's total width */
+}
+
+.table-filter-control {
+  width: calc(100% - 16px); /* Full width minus horizontal padding (8px left + 8px right) */
+  padding: 6px 8px; /* Vertical and horizontal padding for the input field */
+  border-radius: 4px; /* Slightly rounded corners */
+  border: 1px solid #c0c0c0; /* A subtle border */
+  font-size: 0.9rem;
+  outline: none; /* Remove default focus outline */
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth transition for focus */
+  background-color: #ffffff; /* Ensure background is white */
+  color: #333333; /* Darker text color */
+}
+
+.table-filter-control:focus {
+  border-color: #007bff; /* Blue border on focus */
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25); /* Subtle blue shadow on focus */
+}

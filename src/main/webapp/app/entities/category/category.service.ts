@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ApplicationConfigService } from "../../core/config/application-config.service";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { ICategory } from "./category.model";
 
@@ -33,5 +33,14 @@ export class CategoryService {
 
     delete(id: number): Observable<any> {
         return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'body' });
+    }
+
+    filterCategories(name: string): Observable<ICategory[]> {
+        let params = new HttpParams();
+
+        if(name) {
+            params = params.set('name', name);
+        }
+        return this.http.get<ICategory[]>(`${this.resourceUrl}/filter-categories`, { params });
     }
 }

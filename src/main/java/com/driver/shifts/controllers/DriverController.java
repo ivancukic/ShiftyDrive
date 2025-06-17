@@ -1,7 +1,9 @@
 package com.driver.shifts.controllers;
 
+import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.driver.shifts.dto.DriverDTO;
@@ -96,5 +99,24 @@ public class DriverController {
 	public ResponseEntity<List<DriverDTO>> getActiveDrivers() {
 		return ResponseEntity.ok(driverService.getActiveDrivers());
 	}
+	
+	@GetMapping(value = "/filter-drivers", produces = MediaType.APPLICATION_JSON_VALUE)
+	@Operation(summary = "Filter drivers", responses = {
+			@ApiResponse(responseCode = "200", description = "Drivers are filtered successfully"),
+			@ApiResponse(responseCode = "400", description = "Bad request forwarded", content = @Content),
+			@ApiResponse(responseCode = "500", description = "Server error", content = @Content)
+	})
+	public ResponseEntity<List<DriverDTO>> getDriversWithFilter(
+				@RequestParam(required = false) String name,
+				@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dobBefore,
+				@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dobAfter,
+				@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dobBetweenStart,
+				@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dobBetweenEnd,
+				@RequestParam(required = false) Boolean active,
+				@RequestParam(required = false) Long categoryId
+			) {
+		return ResponseEntity.ok(driverService.findDriversWithFilterDynamic(name, active, dobBefore, dobAfter, dobBetweenStart, dobBetweenEnd, categoryId));
+	}
+	
 
 }

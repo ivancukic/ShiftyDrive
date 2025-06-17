@@ -1,19 +1,23 @@
 package com.driver.shifts.services;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.driver.shifts.dto.DriverDTO;
 import com.driver.shifts.entity.Category;
 import com.driver.shifts.entity.Driver;
+import com.driver.shifts.entity.User;
 import com.driver.shifts.exceptions.BadRequestAlertException;
 import com.driver.shifts.exceptions.DriverNotFoundException;
 import com.driver.shifts.exceptions.ResourceNotFoundException;
+import com.driver.shifts.fiters.DriverSpecification;
 import com.driver.shifts.mapper.DriverMapper;
 import com.driver.shifts.repositories.CategoryRepository;
 import com.driver.shifts.repositories.DriverRepository;
@@ -151,6 +155,25 @@ public class DriverServiceImpl implements DriverService {
 							   .stream()
 							   .map(DriverMapper::convertToDto)
 							   .collect(Collectors.toList());
+	}
+
+	@Override
+	public List<DriverDTO> findDriversWithFilterDynamic(String name, Boolean active, LocalDate dobBefore, LocalDate dobAfter, LocalDate dobBetweenStart, LocalDate dobBetweenEnd, Long categoryId) {
+		User currentUser = authenticatedUserProvider.getCurrentUser();
+		
+		Specification<Driver> spec = Specification
+	                .where(DriverSpecification.belongsToUser(currentUser))
+	                .and(DriverSpecification.hasName(name))
+	                .and(DriverSpecification.isActive(active))
+	                .and(DriverSpecification.bornBefore(dobBefore))
+	                .and(DriverSpecification.bornAfter(dobAfter))
+	                .and(DriverSpecification.bornBetween(dobBetweenStart, dobBetweenEnd))
+	                .and(DriverSpecification.hasCategoryId(categoryId));
+		
+		return driverRepository.findAll(spec)
+				               .stream()
+				               .map(DriverMapper::convertToDto)
+				               .collect(Collectors.toList());
 	}
 
 }

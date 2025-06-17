@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ApplicationConfigService } from "../../core/config/application-config.service";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { IDriver } from "./driver.model";
 
@@ -34,5 +34,32 @@ export class DriverService {
 
     delete(id: number): Observable<any> {
         return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'body' });
+    }
+
+    filterDrivers(name?: string, dobBefore?: string, dobAfter?: string, dobBetweenStart?: string, dobBetweenEnd?: string, active?: boolean, categoryId?: number): Observable<IDriver[]> {
+        let params = new HttpParams();
+
+        if(name) {
+            params = params.set('name', name);
+        }
+        if(dobBefore) {
+            params = params.set('dobBefore', dobBefore);
+        }
+        if (dobAfter) {
+            params = params.set('dobAfter', dobAfter);
+        }
+        if(dobBetweenStart) {
+            params = params.set('dobBetweenStart', dobBetweenStart);
+        }
+        if(dobBetweenEnd) {
+            params = params.set('dobBetweenEnd', dobBetweenEnd);
+        }
+        if (active !== undefined && active !== null) {
+            params = params.set('active', active);
+        }
+        if (categoryId !== undefined && categoryId !== null) {
+            params = params.set('categoryId', categoryId);
+        }
+        return this.http.get<IDriver[]>(`${this.resourceUrl}/filter-drivers`, { params });
     }
 }

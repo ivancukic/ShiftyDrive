@@ -286,3 +286,69 @@ background-color: #f9f9f9;
     margin-top: 0.75rem;
     text-align: center;
 }
+
+// Filter name
+.filter-input-container {
+  margin-top: 8px;
+  width: 100%;
+  box-sizing: border-box; 
+}
+
+.table-filter-control {
+  width: calc(100% - 16px); 
+  padding: 6px 8px; 
+  border-radius: 4px; 
+  border: 1px solid #c0c0c0; 
+  font-size: 0.9rem;
+  outline: none; 
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; 
+  background-color: #ffffff; 
+  color: #333333; 
+}
+
+.table-filter-control:focus {
+  border-color: #007bff; 
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25); 
+}
+
+// Date filter
+.filter-group-container {
+    display: flex;
+    flex-direction: column; /* Stack select and inputs vertically */
+    gap: 0.5rem; /* Space between elements */
+    margin-top: 8px; /* Space from the "Date Of Birth" text */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.table-filter-select {
+    width: 100%;
+    padding: 6px 8px;
+    border-radius: 4px;
+    border: 1px solid #c0c0c0;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    background-color: #ffffff;
+    color: #333333;
+    appearance: none; /* Remove default dropdown arrow */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.75rem center;
+    background-repeat: no-repeat;
+    background-size: 0.8rem;
+}
+
+.table-filter-select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* For "between" dates, make inputs share space horizontally */
+.filter-input-container.two-inputs {
+    display: flex;
+    gap: 0.5rem; /* Space between the two date inputs */
+}
+
+.filter-input-container.two-inputs .table-filter-control {
+    width: calc(50% - 4px); /* Half width minus gap adjustment */
+}

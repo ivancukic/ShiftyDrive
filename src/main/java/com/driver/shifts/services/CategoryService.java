@@ -16,5 +16,7 @@ public interface CategoryService {
 	CategoryDTO update(Long id, CategoryDTO dto);
 	
 	void delete(Long id);
+	
+	List<CategoryDTO> findCategoriesWithFilterDynamic(String name);
 
 }

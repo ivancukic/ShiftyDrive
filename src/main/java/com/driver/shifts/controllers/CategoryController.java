@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.driver.shifts.dto.CategoryDTO;
@@ -87,4 +88,13 @@ public class CategoryController {
 				.build();
 	}
 
+	@GetMapping(value = "/filter-categories", produces = MediaType.APPLICATION_JSON_VALUE)
+	@Operation(summary = "Filter categories", responses = {
+			@ApiResponse(responseCode = "200", description = "Categories are filtered successfully"),
+			@ApiResponse(responseCode = "400", description = "Bad request forwarded", content = @Content),
+			@ApiResponse(responseCode = "500", description = "Server error", content = @Content)
+	})
+	public ResponseEntity<List<CategoryDTO>> getCategoriesWithFilter(@RequestParam(required = false) String name) {
+		return ResponseEntity.ok(categoryService.findCategoriesWithFilterDynamic(name));
+	}
 }
