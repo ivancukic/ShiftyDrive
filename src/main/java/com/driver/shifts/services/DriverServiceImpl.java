@@ -7,6 +7,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -174,6 +176,12 @@ public class DriverServiceImpl implements DriverService {
 				               .stream()
 				               .map(DriverMapper::convertToDto)
 				               .collect(Collectors.toList());
+	}
+
+	@Override
+	public Page<DriverDTO> findAllDriversWithPagination(Pageable pageable) {
+		return driverRepository.findAll(pageable)
+  							   .map(DriverMapper::convertToDto);
 	}
 
 }

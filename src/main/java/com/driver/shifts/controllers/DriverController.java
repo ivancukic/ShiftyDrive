@@ -3,6 +3,10 @@ package com.driver.shifts.controllers;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -118,5 +122,21 @@ public class DriverController {
 		return ResponseEntity.ok(driverService.findDriversWithFilterDynamic(name, active, dobBefore, dobAfter, dobBetweenStart, dobBetweenEnd, categoryId));
 	}
 	
-
+	@GetMapping(value = "/pagable-drivers", produces = MediaType.APPLICATION_JSON_VALUE)
+	@Operation(summary = "Drivers with pagination", responses = {
+			@ApiResponse(responseCode = "200", description = "Drivers are successfully retrieved with pagination"),
+			@ApiResponse(responseCode = "400", description = "Bad request forwarded", content = @Content),
+			@ApiResponse(responseCode = "500", description = "Server error", content = @Content)
+	})
+	public ResponseEntity<Page<DriverDTO>> getAllDriversWithPagination(
+				@RequestParam(defaultValue = "0") int page,
+				@RequestParam(defaultValue = "10") int size,
+				@RequestParam(defaultValue = "id") String sortBy,
+				@RequestParam(defaultValue = "asc") String sortDir
+			) {
+		
+		Pageable pageable = PageRequest.of(page, size, sortDir.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending());
+		
+		return ResponseEntity.ok(driverService.findAllDriversWithPagination(pageable));
+	}
 }

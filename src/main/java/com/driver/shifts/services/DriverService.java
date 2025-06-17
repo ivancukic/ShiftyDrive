@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.driver.shifts.dto.DriverDTO;
 
 
@@ -23,4 +26,5 @@ public interface DriverService {
 	
 	List<DriverDTO> findDriversWithFilterDynamic(String name, Boolean active, LocalDate dobBefore, LocalDate dobAfter, LocalDate dobBetweenStart, LocalDate dobBetweenEnd, Long categoryId);
 
+	Page<DriverDTO> findAllDriversWithPagination(Pageable pageable);
 }
